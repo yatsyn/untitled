@@ -11,7 +11,7 @@ public class Main {
         System.out.println("do yu like a random joke or one by one? (1- random, 0 -one by one)");
         String choose = scanner.nextLine();
 
-        JokeTimer jokeTimer = new JokeTimer();
+        iJokeTimer jokeTimer = new JokeTimer();
 
         if (choose != null && choose.equals("1"))   {
             jokeTimer.setRandom(true);

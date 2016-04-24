@@ -7,7 +7,7 @@ import java.util.Random;
 /**
  * Created by ivan on 4/21/16.
  */
-public class JokeTimer {
+public class JokeTimer implements iJokeTimer {
     private static final float PAUSE = 6000;
     private static final long MILLS = 1349333576;
     private boolean randomOn = false;
