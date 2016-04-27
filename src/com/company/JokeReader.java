@@ -10,6 +10,7 @@ import java.util.Scanner;
  */
 public class JokeReader {
 
+    private static final String PATH = "/home/ivan/IdeaProjects/untitled/src/com/company/jokes.txt";
 
     public static List<String> initArrFromFile() {
         List<String> jokes;
@@ -18,7 +19,7 @@ public class JokeReader {
         jokes = new ArrayList<String>();
 
         try {
-            s = new Scanner(new File("/home/ivan/IdeaProjects/untitled/src/com/company/jokes.txt"));
+            s = new Scanner(new File(PATH));
             while (s.hasNextLine()) {
                 jokes.add(s.nextLine());
             }

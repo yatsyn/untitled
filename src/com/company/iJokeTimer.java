@@ -4,6 +4,6 @@ package com.company;
  * Created by ivan on 4/21/16.
  */
 public interface iJokeTimer {
-    void setRandom(boolean randomOn);
+    void setModeTimer(ModeTimer mode);
     public void runJokeTimer();
 }

@@ -14,9 +14,9 @@ public class Main {
         iJokeTimer jokeTimer = new JokeTimer();
 
         if (choose != null && choose.equals("1"))   {
-            jokeTimer.setRandom(true);
+            jokeTimer.setModeTimer(ModeTimer.RANDOM);
         }   else if (choose != null && choose.equals("0"))  {
-            jokeTimer.setRandom(false);
+            jokeTimer.setModeTimer(ModeTimer.ASC);
         }   else {
             System.out.println("one by one");
         }

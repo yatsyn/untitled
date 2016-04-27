@@ -9,20 +9,23 @@ import java.util.Random;
  */
 public class JokeTimer implements iJokeTimer {
     private static final float PAUSE = 6000;
-    private static final long MILLS = 1349333576;
-    private boolean randomOn = false;
-    private long startTime = (System.currentTimeMillis() - MILLS);
-    private List<String> jokesArray = JokeReader.initArrFromFile();
+
+    private ModeTimer modeTimer = ModeTimer.ASC;
+    //enum
+
+    private IJokeConsolePrinter jokeConsolePrinter = new JokeConsolePrinter();
+    private JokeReader jokeReader = new JokeReader();
+    List<String> jokesArray = jokeReader.initArrFromFile();
     private List<Integer> jokesThatWasShown = new ArrayList<Integer>();
 
-
-    public void setRandom(boolean randomValue) {
-        this.randomOn = randomValue;
+    public void setModeTimer(ModeTimer modeTimer) {
+        this.modeTimer = modeTimer;
     }
+
 
     public void runJokeTimer() {
 
-        if (randomOn == true) {
+        if (modeTimer.equals(ModeTimer.RANDOM)) {
             printRandomJoke();
         } else {
             printJokesOneByOne();
@@ -33,14 +36,16 @@ public class JokeTimer implements iJokeTimer {
 
         Random random = new Random();
         Integer number = (Integer) random.nextInt(jokesArray.size());
+        long now1 = System.currentTimeMillis();
 
         for (int i = 0; i < jokesArray.size(); i++) {
-            if (timer(startTime) == true) {
+            long now2 = System.currentTimeMillis();
+            if (now2 - now1 >= PAUSE) {
                 if (!jokesThatWasShown.contains(number)) {
-                    System.out.println(jokesArray.get(number));
+                    jokeConsolePrinter.print(jokesArray.get(number));
                     jokesThatWasShown.add(number);
                     number = (Integer) random.nextInt(jokesArray.size());
-                    startTime = (System.currentTimeMillis() - MILLS);
+                    now1 = System.currentTimeMillis();
                 } else {
                     i--;
                     number = (Integer) random.nextInt(jokesArray.size());
@@ -53,24 +58,17 @@ public class JokeTimer implements iJokeTimer {
     }
 
     private void printJokesOneByOne() {
-        System.out.println(startTime);
 
+        long now1 = System.currentTimeMillis();
         for (int i = 0; i < jokesArray.size(); i++) {
-            if (timer(startTime) == true) {
-                System.out.println(jokesArray.get(i));
-                startTime = (System.currentTimeMillis() - MILLS);
+            long now2 = System.currentTimeMillis();
+            if (now2 - now1 >= PAUSE) {
+                jokeConsolePrinter.print(jokesArray.get(i));
+                now1 = System.currentTimeMillis();
             } else {
                 i--;
             }
 
         }
-    }
-
-    private boolean timer(long t) {
-        long timeRangeTemp = (System.currentTimeMillis()- MILLS);
-        if (timeRangeTemp - t > PAUSE) {
-            return true;
-        }
-        return false;
     }
 }
